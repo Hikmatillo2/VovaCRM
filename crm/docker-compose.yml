@@ -15,7 +15,7 @@ services:
       nw:
         aliases:
           - database
-  bot:
+  crm:
       build: crm/
       command: /srv/telegram_admin/run.sh
       ports:

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+sleep 10
+psql postgresql://postgres:postgres@database -f psql.sql
+
 service nginx start
 # service postgresql start
 python3 manage.py collectstatic --noinput
