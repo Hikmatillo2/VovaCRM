@@ -1,5 +1,5 @@
 FROM ubuntu
-RUN apt update -y &&  apt upgrade -y
+RUN apt-get update && apt-get install -y apt-transport-https
 RUN DEBIAN_FRONTEND=noninteractive apt install -y nginx python3 python3-pip gunicorn sudo net-tools nano postgresql-contrib libpq-dev
 COPY .. /srv/telegram_admin
 WORKDIR /srv/telegram_admin
