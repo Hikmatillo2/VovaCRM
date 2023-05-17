@@ -1,8 +1,6 @@
 from django.contrib.admin.widgets import AdminDateWidget
 from django import forms
-
 from .models import *
-from .widgets import DatePickerInput
 
 
 class SourceForm(forms.ModelForm):
@@ -58,12 +56,12 @@ class OrderForm(forms.ModelForm):
         fields = [
             'date_of_receipt',
             'last_contact_date',
-            'date_scheduled_call',
-            'conversion_goal',
+            'source',
             'customer',
+            'conversion_goal',
             'status',
             'comment',
-            'source'
+            'date_scheduled_call',
         ]
 
         widgets = {

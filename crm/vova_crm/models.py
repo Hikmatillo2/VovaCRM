@@ -44,8 +44,8 @@ class Company(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Название компании"
-        verbose_name_plural = "Названия компаний"
+        verbose_name = "4. Название компании"
+        verbose_name_plural = "4. Названия компаний"
 
 
 class Status(models.Model):
@@ -92,14 +92,13 @@ class Region(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Регион"
-        verbose_name_plural = "Регионы"
+        verbose_name = "2. Регион"
+        verbose_name_plural = "2. Регионы"
 
 
 class Customer(models.Model):
     phone_number = PhoneNumberField(
         max_length=12,
-        region='RU',
         unique=True,
         blank=False,
         null=False,
@@ -132,8 +131,8 @@ class Customer(models.Model):
         return f"#{self.id} {self.company}"
 
     class Meta:
-        verbose_name = "Клиент"
-        verbose_name_plural = "Клиенты"
+        verbose_name = "3. Клиент"
+        verbose_name_plural = "3. Клиенты"
 
 
 class Order(models.Model):
@@ -152,9 +151,8 @@ class Order(models.Model):
     )
 
     date_scheduled_call = models.DateField(
-        default=datetime.now() + timedelta(days=7),
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
         verbose_name="Дата запланированного звонка"
     )
 
@@ -198,5 +196,5 @@ class Order(models.Model):
         return f"#{self.id} {self.conversion_goal}"
 
     class Meta:
-        verbose_name = "Обращение"
-        verbose_name_plural = "Обращения"
+        verbose_name = "1. Обращение"
+        verbose_name_plural = "1. Обращения"

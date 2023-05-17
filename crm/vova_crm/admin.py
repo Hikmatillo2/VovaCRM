@@ -69,7 +69,7 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
     ]
 
     def region(self, order: Order):
-        return str(order.customer.region.name)
+        return str(order.customer.region.name)[0:65] + '...'
 
     region.short_description = 'Регион'
 
@@ -81,7 +81,9 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
         'source__source',
         'status__name',
         'customer__email',
-        'customer__phone_number__phone_number',
+        'comment',
+        'customer__phone_number',
+        'customer__email',
         'customer__region__name',
         'customer__company__name',
     ]
