@@ -63,13 +63,19 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
         'date_of_receipt',
         'last_contact_date',
         'date_scheduled_call',
-        'comment',
+        'comment_',
         'status',
         'region'
     ]
 
     def region(self, order: Order):
-        return str(order.customer.region.name)[0:65] + '...'
+        return str(order.customer.region.name)
+
+    def comment_(self, order: Order):
+        return str(order.comment)[0:65] + '...'
+
+    def conversion_goal_(self, order: Order):
+        return str(order.conversion_goal)[0:65] + '...'
 
     region.short_description = 'Регион'
 
