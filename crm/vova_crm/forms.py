@@ -1,21 +1,8 @@
-import phonenumber_field.formfields
+from django.contrib.admin.widgets import AdminDateWidget
 from django import forms
-from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
 from .models import *
-from .widgets import DatePickerInput, TimePickerInput
-
-
-class PhoneNumberForm(forms.ModelForm):
-    class Meta:
-        model = PhoneNumber
-        fields = [
-            'phone_number'
-        ]
-
-        # widgets = {
-        #     'phone_number': PhoneNumberPrefixWidget(),
-        # }
+from .widgets import DatePickerInput
 
 
 class SourceForm(forms.ModelForm):
@@ -65,20 +52,6 @@ class CustomerForm(forms.ModelForm):
         }
 
 
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = (
-            'text',
-            'date',
-
-        )
-
-        widgets = {
-            'date': DatePickerInput(),
-        }
-
-
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
@@ -94,7 +67,7 @@ class OrderForm(forms.ModelForm):
         ]
 
         widgets = {
-            'last_contact_date': DatePickerInput(),
-            'date_scheduled_call': DatePickerInput(),
-            'date_of_receipt': DatePickerInput()
+            'last_contact_date': AdminDateWidget(),
+            'date_scheduled_call': AdminDateWidget(),
+            'date_of_receipt': AdminDateWidget()
         }

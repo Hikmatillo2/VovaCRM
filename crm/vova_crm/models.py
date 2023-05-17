@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
@@ -30,24 +30,6 @@ from phonenumber_field.modelfields import PhoneNumberField
   статус: Статус
   комментарий: Комментарий
 '''
-
-
-class PhoneNumber(models.Model):
-    phone_number = PhoneNumberField(
-        max_length=12,
-        region='RU',
-        unique=True,
-        blank=False,
-        null=False,
-        verbose_name="Номер телефона",
-    )
-
-    def __str__(self):
-        return str(self.phone_number)
-
-    class Meta:
-        verbose_name = "Номер телефоны"
-        verbose_name_plural = "Номера телефонов"
 
 
 class Company(models.Model):
@@ -115,9 +97,12 @@ class Region(models.Model):
 
 
 class Customer(models.Model):
-    phone_number = models.ForeignKey(
-        to=PhoneNumber,
-        on_delete=models.CASCADE,
+    phone_number = PhoneNumberField(
+        max_length=12,
+        region='RU',
+        unique=True,
+        blank=False,
+        null=False,
         verbose_name="Номер телефона",
     )
 
@@ -139,7 +124,8 @@ class Customer(models.Model):
 
     region = models.ForeignKey(
         to=Region,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        verbose_name='Регион'
     )
 
     def __str__(self):
@@ -150,41 +136,23 @@ class Customer(models.Model):
         verbose_name_plural = "Клиенты"
 
 
-class Comment(models.Model):
-    text = models.TextField(
-        blank=False,
-        null=False,
-        verbose_name="Комментарий"
-    )
-
-    date = models.DateField(
-        blank=False,
-        null=False,
-        verbose_name="Дата создания комментария"
-    )
-
-    def __str__(self):
-        return self.text
-
-    class Meta:
-        verbose_name = "Комментарий к обращению"
-        verbose_name_plural = "Комментарии к обращениям"
-
-
 class Order(models.Model):
     date_of_receipt = models.DateField(
         blank=False,
+        default=datetime.now(),
         null=False,
         verbose_name="Дата создания обращения"
     )
 
     last_contact_date = models.DateField(
+        default=datetime.now(),
         blank=False,
         null=False,
         verbose_name="Дата последнего контакта с клиентом"
     )
 
     date_scheduled_call = models.DateField(
+        default=datetime.now() + timedelta(days=7),
         blank=False,
         null=False,
         verbose_name="Дата запланированного звонка"
@@ -212,11 +180,10 @@ class Order(models.Model):
         verbose_name="Статус обращения"
     )
 
-    comment = models.ManyToManyField(
-        to=Comment,
+    comment = models.TextField(
         blank=False,
         null=False,
-        verbose_name="Комментарии"
+        verbose_name="Комментарий"
     )
 
     source = models.ForeignKey(
