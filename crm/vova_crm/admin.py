@@ -58,7 +58,7 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = [
         'id',
         'customer',
-        'conversion_goal',
+        'conversion_goal_',
         'source',
         'date_of_receipt',
         'last_contact_date',
