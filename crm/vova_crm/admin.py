@@ -56,7 +56,7 @@ class CustomerAdmin(ExportActionMixin, admin.ModelAdmin):
 @admin.register(Order)
 class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = [
-        'id',
+        'user',
         'customer',
         'conversion_goal_',
         'source',
@@ -88,6 +88,8 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
         'status__name',
         'customer__email',
         'comment',
+        'user__first_name',
+        'user__last_name',
         'customer__phone_number',
         'customer__email',
         'customer__region__name',

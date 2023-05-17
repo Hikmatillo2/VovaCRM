@@ -62,6 +62,7 @@ class OrderForm(forms.ModelForm):
             'status',
             'comment',
             'date_scheduled_call',
+            'user',
         ]
 
         widgets = {

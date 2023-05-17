@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+from django.contrib.auth.models import User
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -190,6 +191,14 @@ class Order(models.Model):
         blank=False,
         null=False,
         verbose_name="Источник обращения"
+    )
+
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+        verbose_name='Менеджер'
     )
 
     def __str__(self):
