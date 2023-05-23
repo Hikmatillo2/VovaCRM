@@ -57,11 +57,12 @@ class CustomerAdmin(ExportActionMixin, admin.ModelAdmin):
 class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = [
         'user',
-        'contacts',
+        'customer',
         'conversion_goal_',
         'source',
         'date_of_receipt',
         'last_contact_date',
+        'date_scheduled_call',
         'comment_',
         'status',
         'region'
@@ -71,22 +72,16 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
         return str(order.customer.region.name)
 
     def comment_(self, order: Order):
-        if len(order.comment) > 65:
-            return str(order.comment.strip())[0:65] + '...'
-        return str(order.comment)
+        return str(order.comment)[0:65] + '...'
 
     def conversion_goal_(self, order: Order):
-        if len(order.conversion_goal) > 65:
-            return str(order.conversion_goal.strip())[0:65] + '...'
-        return str(order.conversion_goal)
+        return str(order.conversion_goal)[0:65] + '...'
     
-    def contacts(self, order: Order):
-        return f'{str(order.customer.phone_number)}\n{order.customer.email}'
+    def contancts(self, order: Order):
+        return str(orde.client)
     
-    conversion_goal_.short_description = 'Цель обращения'
-    contacts.short_description = 'Контакты клиента'
     region.short_description = 'Регион'
-    comment_.short_description = 'Комментарий'
+    conversion_goal.short_description = 'Цель обращения'
     form = OrderForm
 
     search_fields = [
