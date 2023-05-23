@@ -3,34 +3,7 @@ from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-
-'''
-Телефон:
-  номер_телефона: строка # unique
-
-Заказчик:
-  телефон: Телефон # необязательные поля
-  почта: строка # необязательные поля unique
-  компания: строка # необязательные поля
-
-
-
-Комментарий:
-  текст: строка
-  дата: дата
-
-Статус:
-  статус: строка
-
-Обращение:
-  дата_получения_заявки: дата
-  дата_последнего_контакта: дата
-  дата_запланированного_звонка: дата
-  цель_обращения: строка
-  заказчик: Заказчик
-  статус: Статус
-  комментарий: Комментарий
-'''
+from colorfield.fields import ColorField
 
 
 class Company(models.Model):
@@ -55,6 +28,13 @@ class Status(models.Model):
         null=False,
         unique=True,
         verbose_name="Статус обращения"
+    )
+
+    color = ColorField(
+        blank=False,
+        null=False,
+        default='#FF0000',
+        verbose_name='Цвет статуса'
     )
 
     def __str__(self):

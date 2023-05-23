@@ -1,6 +1,7 @@
 from django.contrib import admin
 from import_export.admin import ExportActionMixin
 from .forms import *
+from django.utils.safestring import mark_safe
 
 
 @admin.register(Source)
@@ -24,7 +25,8 @@ class CompanyAdmin(ExportActionMixin, admin.ModelAdmin):
 @admin.register(Status)
 class StatusForm(admin.ModelAdmin):
     list_display = [
-        'name'
+        'name',
+        'color',
     ]
 
     form = StatusForm
@@ -63,9 +65,14 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
         'date_of_receipt',
         'last_contact_date',
         'comment_',
-        'status',
-        'region'
+        'status_colored',
+        'region',
     ]
+
+    def status_colored(self, order: Order):
+        return mark_safe('<b style="background:{};">{}</b>'.format(order.status.color, order.status.name))
+    status_colored.allow_tags = True
+    status_colored.short_description = 'Статус обращения'
 
     def region(self, order: Order):
         return str(order.customer.region.name)

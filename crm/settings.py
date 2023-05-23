@@ -32,6 +32,7 @@ if not DEBUG:
 
 INSTALLED_APPS = [
     'jazzmin',
+    'colorfield',
     "phonenumber_field",
     'django.contrib.admin',
     'django.contrib.auth',
