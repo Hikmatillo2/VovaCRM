@@ -46,10 +46,6 @@ class CustomerForm(forms.ModelForm):
             'region'
         ]
 
-        widgets = {
-            'email': forms.EmailInput
-        }
-
 
 class OrderForm(forms.ModelForm):
     class Meta:

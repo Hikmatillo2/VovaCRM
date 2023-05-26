@@ -13,6 +13,20 @@ class SourceAdmin(admin.ModelAdmin):
     form = SourceForm
 
 
+@admin.register(Email)
+class EmailAdmin(admin.ModelAdmin):
+    list_display = [
+        'email'
+    ]
+
+
+@admin.register(PhoneNumber)
+class PhoneNumberAdmin(admin.ModelAdmin):
+    list_display = [
+        'phone_number'
+    ]
+
+
 @admin.register(Company)
 class CompanyAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = [
@@ -44,11 +58,29 @@ class RegionAdmin(admin.ModelAdmin):
 @admin.register(Customer)
 class CustomerAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = [
-        'phone_number',
-        'email',
+        'phone_numbers',
+        'emails',
         'company',
         'region'
     ]
+
+    def emails(self, customer: Customer):
+        emails = [email.email for email in customer.email.all()]
+        if len(emails) > 1:
+            return ', '.join(emails)
+        elif len(emails) == 1:
+            return emails[0]
+
+    emails.short_description = 'Электронная почта'
+
+    def phone_numbers(self, customer: Customer):
+        phone_numbers = [phone_number.email for phone_number in customer.phone_number.all()]
+        if len(phone_numbers) > 1:
+            return ', '.join(phone_numbers)
+        elif len(phone_numbers) == 1:
+            return phone_numbers[0]
+
+    emails.short_description = 'Номер телефона'
 
     # def phone_number(self, customer: Customer):
     #     return customer.phone_number.phone_number.name
@@ -70,7 +102,7 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
     ]
 
     def status_colored(self, order: Order):
-        return mark_safe('<b style="background:{};">{}</b>'.format(order.status.color, order.status.name))
+        return mark_safe('<b style="background:{}; border-radius: 4px; display: center">{}</b>'.format(order.status.color, order.status.name))
     status_colored.allow_tags = True
     status_colored.short_description = 'Статус обращения'
 

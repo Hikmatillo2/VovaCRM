@@ -6,6 +6,40 @@ from phonenumber_field.modelfields import PhoneNumberField
 from colorfield.fields import ColorField
 
 
+class Email(models.Model):
+    email = models.EmailField(
+        max_length=128,
+        blank=True,
+        null=True,
+        unique=True,
+        verbose_name="Электронная почта"
+    )
+
+    def __str__(self):
+        return str(self.email)
+
+    class Meta:
+        verbose_name = "Электронная почта"
+        verbose_name_plural = "Электронные почты"
+
+
+class PhoneNumber(models.Model):
+    phone_number = PhoneNumberField(
+        max_length=12,
+        unique=True,
+        blank=False,
+        null=False,
+        verbose_name="Номер телефона",
+    )
+
+    def __str__(self):
+        return str(self.phone_number)
+
+    class Meta:
+        verbose_name = "Номер телефона"
+        verbose_name_plural = "Номера телефонов"
+
+
 class Company(models.Model):
     name = models.TextField(
         blank=False,
@@ -78,33 +112,29 @@ class Region(models.Model):
 
 
 class Customer(models.Model):
-    phone_number = PhoneNumberField(
-        max_length=12,
-        unique=True,
-        blank=False,
-        null=False,
-        verbose_name="Номер телефона",
-    )
-
-    email = models.EmailField(
-        max_length=128,
-        blank=False,
-        null=False,
-        unique=True,
-        verbose_name="Электронная почта"
-    )
-
     company = models.ForeignKey(
         to=Company,
         on_delete=models.CASCADE,
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
         verbose_name="Компания"
+    )
+
+    phone_number = models.ManyToManyField(
+        to=PhoneNumber,
+        verbose_name='Номер телефона'
+    )
+
+    email = models.ManyToManyField(
+        to=Email,
+        verbose_name='Электронная почта'
     )
 
     region = models.ForeignKey(
         to=Region,
         on_delete=models.CASCADE,
+        blank=True,
+        null=True,
         verbose_name='Регион'
     )
 
