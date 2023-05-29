@@ -122,11 +122,13 @@ class Customer(models.Model):
 
     phone_number = models.ManyToManyField(
         to=PhoneNumber,
+        blank=True,
         verbose_name='Номер телефона'
     )
 
     email = models.ManyToManyField(
         to=Email,
+        blank=True,
         verbose_name='Электронная почта'
     )
 
