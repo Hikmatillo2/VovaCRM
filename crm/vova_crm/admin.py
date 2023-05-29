@@ -75,7 +75,7 @@ class CustomerAdmin(ExportActionMixin, admin.ModelAdmin):
     emails.short_description = 'Электронная почта'
 
     def phone_numbers(self, customer: Customer):
-        phone_numbers = [phone_number.email for phone_number in customer.phone_number.all()]
+        phone_numbers = [phone_number.phone_number for phone_number in customer.phone_number.all()]
         if len(phone_numbers) > 1:
             return ', '.join(phone_numbers)
         elif len(phone_numbers) == 1:
