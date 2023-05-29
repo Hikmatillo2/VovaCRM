@@ -26,7 +26,7 @@ DEBUG = False if os.environ.get("DEBUG", '') in ["False", False] else True
 
 ALLOWED_HOSTS = ["crm.hikmatillo.ru", '0.0.0.0', '192.168.0.28', '127.0.0.1', '31.173.240.248', 'localhost']
 if not DEBUG:
-    CSRF_TRUSTED_ORIGINS = ['https://crm.hikmatillo.ru']
+    CSRF_TRUSTED_ORIGINS = ['https://crm.hikmatillo.ru', 'https://clients.di.media']
 
 # Application definition
 
