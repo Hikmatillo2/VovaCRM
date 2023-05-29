@@ -70,6 +70,7 @@ class CustomerAdmin(ExportActionMixin, admin.ModelAdmin):
             return ', '.join(emails)
         elif len(emails) == 1:
             return emails[0]
+        return '-'
 
     emails.short_description = 'Электронная почта'
 
@@ -79,6 +80,7 @@ class CustomerAdmin(ExportActionMixin, admin.ModelAdmin):
             return ', '.join(phone_numbers)
         elif len(phone_numbers) == 1:
             return phone_numbers[0]
+        return '-'
 
     emails.short_description = 'Номер телефона'
 
