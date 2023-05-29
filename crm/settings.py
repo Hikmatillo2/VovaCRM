@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-3qq3th+936qw3j6m=-4ui*5zi+=*w5bnnxrb3-a6#*!a83w0d4
 DEBUG = False if os.environ.get("DEBUG", '') in ["False", False] else True
 
 ALLOWED_HOSTS = ["crm.hikmatillo.ru", '0.0.0.0', '192.168.0.28', '127.0.0.1', '31.173.240.248', 'localhost']
-if DEBUG:
+if not DEBUG:
     CSRF_TRUSTED_ORIGINS = ['https://crm.hikmatillo.ru', 'https://clients.di.media']
 
 # Application definition
