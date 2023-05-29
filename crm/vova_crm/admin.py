@@ -107,7 +107,9 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
     status_colored.short_description = 'Статус обращения'
 
     def region(self, order: Order):
-        return str(order.customer.region.name)
+        if order.customer.region is not None:
+            return str(order.customer.region.name)
+        return '-'
 
     def comment_(self, order: Order):
         if len(order.comment) > 65:
@@ -120,7 +122,30 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
         return str(order.conversion_goal)
     
     def contacts(self, order: Order):
-        return f'{str(order.customer.phone_number)}\n{order.customer.email}'
+        phone_numbers = order.customer.phone_number.all()
+        emails = order.customer.email.all()
+
+        if len(emails) > 1:
+            emails = ', '.join(emails)
+        elif len(emails) == 1:
+            emails = emails[0]
+        else:
+            emails = None
+
+        if len(phone_numbers) > 1:
+            phone_numbers = ', '.join(phone_numbers)
+        elif len(phone_numbers) == 1:
+            phone_numbers = phone_numbers[0]
+        else:
+            phone_numbers = None
+
+        if emails is not None and phone_numbers is not None:
+            return f'{emails}\n{phone_numbers}'
+        if emails is not None and phone_numbers is None:
+            return emails
+        if emails is None and phone_numbers is not None:
+            return phone_numbers
+        return '-'
     
     conversion_goal_.short_description = 'Цель обращения'
     contacts.short_description = 'Контакты клиента'
