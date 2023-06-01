@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vova_crm', '0003_alter_phonenumber_phone_number'),
+        ('dimedia', '0003_alter_phonenumber_phone_number'),
     ]
 
     operations = [
@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='order',
             name='comment',
-            field=models.ManyToManyField(to='vova_crm.comment', verbose_name='Комментарии'),
+            field=models.ManyToManyField(to='dimedia.comment', verbose_name='Комментарии'),
         ),
     ]

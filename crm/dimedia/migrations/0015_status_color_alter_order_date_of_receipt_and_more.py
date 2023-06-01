@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vova_crm', '0014_order_user_alter_order_date_of_receipt_and_more'),
+        ('dimedia', '0014_order_user_alter_order_date_of_receipt_and_more'),
     ]
 
     operations = [

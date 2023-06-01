@@ -9,7 +9,7 @@ import phonenumber_field.modelfields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vova_crm', '0009_alter_order_date_of_receipt_and_more'),
+        ('dimedia', '0009_alter_order_date_of_receipt_and_more'),
     ]
 
     operations = [
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='customer',
             name='region',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vova_crm.region', verbose_name='Регион'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dimedia.region', verbose_name='Регион'),
         ),
         migrations.AlterField(
             model_name='order',

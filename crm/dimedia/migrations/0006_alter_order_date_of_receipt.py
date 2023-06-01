@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vova_crm', '0005_remove_order_comment_delete_comment_order_comment'),
+        ('dimedia', '0005_remove_order_comment_delete_comment_order_comment'),
     ]
 
     operations = [

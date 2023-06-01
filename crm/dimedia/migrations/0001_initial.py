@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('email', models.EmailField(max_length=128, unique=True, verbose_name='Электронная почта')),
-                ('company', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vova_crm.company', verbose_name='Компания')),
+                ('company', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dimedia.company', verbose_name='Компания')),
             ],
             options={
                 'verbose_name': 'Клиент',
@@ -100,10 +100,10 @@ class Migration(migrations.Migration):
                 ('last_contact_date', models.DateField(verbose_name='Дата последнего контакта с клиентом')),
                 ('date_scheduled_call', models.DateField(verbose_name='Дата запланированного звонка')),
                 ('conversion_goal', models.TextField(verbose_name='Цель обращения')),
-                ('comment', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vova_crm.comment', verbose_name='Комментарии')),
-                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vova_crm.customer', verbose_name='Клиент')),
-                ('source', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vova_crm.source', verbose_name='Источник обращения')),
-                ('status', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vova_crm.status', verbose_name='Статус обращения')),
+                ('comment', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dimedia.comment', verbose_name='Комментарии')),
+                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dimedia.customer', verbose_name='Клиент')),
+                ('source', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dimedia.source', verbose_name='Источник обращения')),
+                ('status', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dimedia.status', verbose_name='Статус обращения')),
             ],
             options={
                 'verbose_name': 'Обращение',
@@ -113,11 +113,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='customer',
             name='phone_number',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vova_crm.phonenumber', verbose_name='Номер телефона'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dimedia.phonenumber', verbose_name='Номер телефона'),
         ),
         migrations.AddField(
             model_name='customer',
             name='region',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vova_crm.region'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dimedia.region'),
         ),
     ]

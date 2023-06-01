@@ -7,7 +7,7 @@ import phonenumber_field.modelfields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vova_crm', '0002_alter_phonenumber_phone_number'),
+        ('dimedia', '0002_alter_phonenumber_phone_number'),
     ]
 
     operations = [

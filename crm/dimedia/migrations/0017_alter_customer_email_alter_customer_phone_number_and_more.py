@@ -7,19 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vova_crm', '0016_email_phonenumber_alter_customer_company_and_more'),
+        ('dimedia', '0016_email_phonenumber_alter_customer_company_and_more'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='customer',
             name='email',
-            field=models.ManyToManyField(blank=True, to='vova_crm.email', verbose_name='Электронная почта'),
+            field=models.ManyToManyField(blank=True, to='dimedia.email', verbose_name='Электронная почта'),
         ),
         migrations.AlterField(
             model_name='customer',
             name='phone_number',
-            field=models.ManyToManyField(blank=True, to='vova_crm.phonenumber', verbose_name='Номер телефона'),
+            field=models.ManyToManyField(blank=True, to='dimedia.phonenumber', verbose_name='Номер телефона'),
         ),
         migrations.AlterField(
             model_name='order',

@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('vova_crm', '0013_alter_company_options_alter_customer_options_and_more'),
+        ('dimedia', '0013_alter_company_options_alter_customer_options_and_more'),
     ]
 
     operations = [

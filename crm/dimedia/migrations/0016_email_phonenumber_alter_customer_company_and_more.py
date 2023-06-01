@@ -9,7 +9,7 @@ import phonenumber_field.modelfields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vova_crm', '0015_status_color_alter_order_date_of_receipt_and_more'),
+        ('dimedia', '0015_status_color_alter_order_date_of_receipt_and_more'),
     ]
 
     operations = [
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='customer',
             name='company',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='vova_crm.company', verbose_name='Компания'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='dimedia.company', verbose_name='Компания'),
         ),
         migrations.RemoveField(
             model_name='customer',
@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='customer',
             name='region',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='vova_crm.region', verbose_name='Регион'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='dimedia.region', verbose_name='Регион'),
         ),
         migrations.AlterField(
             model_name='order',
@@ -66,11 +66,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='customer',
             name='email',
-            field=models.ManyToManyField(to='vova_crm.email', verbose_name='Электронная почта'),
+            field=models.ManyToManyField(to='dimedia.email', verbose_name='Электронная почта'),
         ),
         migrations.AddField(
             model_name='customer',
             name='phone_number',
-            field=models.ManyToManyField(to='vova_crm.phonenumber', verbose_name='Номер телефона'),
+            field=models.ManyToManyField(to='dimedia.phonenumber', verbose_name='Номер телефона'),
         ),
     ]
