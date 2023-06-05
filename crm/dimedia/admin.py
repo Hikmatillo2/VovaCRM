@@ -157,16 +157,17 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
         return '-'
 
     def schedule_call(self, order: Order):
-        schedule = datetime.datetime.strptime(str(order.date_scheduled_call), '%Y-%m-%d')
-        if schedule.day < datetime.datetime.now(tz=pytz.timezone('Etc/GMT-5')).day:
-            return mark_safe(
-                '<b style="background: #FF0000; '
-                'border-radius: 4px;'
-                'color: #f2f2f2;'
-                'display: center">{}</b>'.format(
-                    str(order.date_scheduled_call)
+        if order.date_scheduled_call:
+            schedule = datetime.datetime.strptime(str(order.date_scheduled_call), '%Y-%m-%d')
+            if schedule.day < datetime.datetime.now(tz=pytz.timezone('Etc/GMT-5')).day:
+                return mark_safe(
+                    '<b style="background: #FF0000; '
+                    'border-radius: 4px;'
+                    'color: #f2f2f2;'
+                    'display: center">{}</b>'.format(
+                        str(order.date_scheduled_call)
+                    )
                 )
-            )
         return str(order.date_scheduled_call)
         # return str(self.date_scheduled_call)
 
