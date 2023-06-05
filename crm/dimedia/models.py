@@ -213,6 +213,11 @@ class Order(models.Model):
         verbose_name='Менеджер'
     )
 
+    contact_person = models.TextField(
+        null=True,
+        blank=True
+    )
+
     def __str__(self):
         return f"#{self.id} {self.conversion_goal}"
 

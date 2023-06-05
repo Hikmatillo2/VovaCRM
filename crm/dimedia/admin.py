@@ -92,19 +92,24 @@ class CustomerAdmin(ExportActionMixin, admin.ModelAdmin):
 @admin.register(Order)
 class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = [
-        'user',
-        'contacts',
-        'conversion_goal_',
-        'source',
         'date_of_receipt',
         'last_contact_date',
+        'organisation_name',
+        'user',
+        'contacts',
+        'region',
+        'contact_person_',
+        'conversion_goal_',
         'comment_',
         'status_colored',
-        'region',
+        'schedule_call'
     ]
 
     def status_colored(self, order: Order):
-        return mark_safe('<b style="background:{}; border-radius: 4px; display: center">{}</b>'.format(order.status.color, order.status.name))
+        return mark_safe(
+            '<b style="background:{}; border-radius: 4px; display: center">{}</b>'.format(order.status.color,
+                                                                                          order.status.name))
+
     status_colored.allow_tags = True
     status_colored.short_description = 'Статус обращения'
 
@@ -122,7 +127,7 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
         if len(order.conversion_goal) > 65:
             return str(order.conversion_goal.strip())[0:65] + '...'
         return str(order.conversion_goal)
-    
+
     def contacts(self, order: Order):
         phone_numbers = order.customer.phone_number.all()
         emails = order.customer.email.all()
@@ -148,11 +153,42 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
         if emails is None and phone_numbers is not None:
             return phone_numbers
         return '-'
-    
+
+    def schedule_call(self, order: Order):
+        import datetime
+        import pytz
+        schedule = datetime.datetime.strptime(str(order.date_scheduled_call), '%Y-%m-%d')
+        print(datetime.datetime.today())
+        if schedule.day < datetime.datetime.now(tz=pytz.timezone('Etc/GMT-5')).day:
+            return mark_safe(
+                '<b style="background: #FF0000; '
+                'border-radius: 4px;'
+                'color: #f2f2f2;'
+                'display: center">{}</b>'.format(
+                    str(order.date_scheduled_call)
+                )
+            )
+        return str(order.date_scheduled_call)
+        # return str(self.date_scheduled_call)
+
+    def organisation_name(self, order: Order):
+        return order.customer.company.name
+
+    def contact_person_(self, order: Order):
+        person = order.contact_person
+
+        if person is not None:
+            return person
+        return 'Контактное лицо не указано'
+
     conversion_goal_.short_description = 'Цель обращения'
     contacts.short_description = 'Контакты клиента'
     region.short_description = 'Регион'
     comment_.short_description = 'Комментарий'
+    schedule_call.short_description = "Дата запланированного звонка"
+    organisation_name.short_description = "Наименование организации"
+    contact_person_.short_description = 'Контактное лицо'
+
     form = OrderForm
 
     search_fields = [
@@ -160,12 +196,11 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
         'status__name',
         'source__source',
         'status__name',
-        'customer__email',
+        'customer__email__email',
         'comment',
         'user__first_name',
         'user__last_name',
-        'customer__phone_number',
-        'customer__email',
+        'customer__phone_number__phone_number',
         'customer__region__name',
         'customer__company__name',
     ]
