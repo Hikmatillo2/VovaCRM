@@ -84,6 +84,7 @@ class CustomerAdmin(ExportActionMixin, admin.ModelAdmin):
             return phone_numbers[0]
         return '-'
 
+    phone_numbers.short_description = 'Контактное лицо'
     emails.short_description = 'Номер телефона'
 
     # def phone_number(self, customer: Customer):

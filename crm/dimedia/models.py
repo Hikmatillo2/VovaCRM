@@ -215,7 +215,8 @@ class Order(models.Model):
 
     contact_person = models.TextField(
         null=True,
-        blank=True
+        blank=True,
+        verbose_name='Контактное лицо'
     )
 
     def __str__(self):
