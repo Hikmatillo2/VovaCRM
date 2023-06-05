@@ -27,7 +27,8 @@ DEBUG = False if os.environ.get("DEBUG", '') in ["False", False] else True
 ALLOWED_HOSTS = ["crm.hikmatillo.ru", '0.0.0.0', '192.168.0.28', '127.0.0.1', '31.173.240.248', 'localhost']
 if not DEBUG:
     CSRF_TRUSTED_ORIGINS = ['https://crm.hikmatillo.ru', 'https://clients.di.media']
-
+if os.environ.get("SERVER", '') in ["True", True]:
+    CSRF_TRUSTED_ORIGINS = ['https://crm.hikmatillo.ru', 'https://clients.di.media']
 # Application definition
 
 INSTALLED_APPS = [
@@ -84,7 +85,7 @@ if DEBUG:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-else:
+if os.environ.get("SERVER", '') in ["True", True]:
     DATABASES = {
         'default': {
              'ENGINE': 'django.db.backends.postgresql',
