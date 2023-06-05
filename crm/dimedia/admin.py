@@ -2,6 +2,8 @@ from django.contrib import admin
 from import_export.admin import ExportActionMixin
 from .forms import *
 from django.utils.safestring import mark_safe
+import datetime
+import pytz
 
 
 @admin.register(Source)
@@ -155,10 +157,7 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
         return '-'
 
     def schedule_call(self, order: Order):
-        import datetime
-        import pytz
         schedule = datetime.datetime.strptime(str(order.date_scheduled_call), '%Y-%m-%d')
-        print(datetime.datetime.today())
         if schedule.day < datetime.datetime.now(tz=pytz.timezone('Etc/GMT-5')).day:
             return mark_safe(
                 '<b style="background: #FF0000; '
