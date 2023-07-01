@@ -159,8 +159,8 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
 
     def schedule_call(self, order: Order):
         if order.date_scheduled_call:
-            schedule = datetime.datetime.strptime(str(order.date_scheduled_call), '%Y-%m-%d')
-            if schedule.day < datetime.datetime.now(tz=pytz.timezone('Etc/GMT-5')).day:
+            schedule = datetime.datetime.strptime(str(order.date_scheduled_call), '%Y-%m-%d').replace(tzinfo=pytz.timezone('Etc/GMT-5'))
+            if schedule < datetime.datetime.now(tz=pytz.timezone('Etc/GMT-5')):
                 return mark_safe(
                     '<b style="background: #FF0000; '
                     'border-radius: 4px;'
