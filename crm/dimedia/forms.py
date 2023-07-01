@@ -60,6 +60,7 @@ class OrderForm(forms.ModelForm):
             'comment',
             'date_scheduled_call',
             'user',
+            'contact_person',
         ]
 
         widgets = {

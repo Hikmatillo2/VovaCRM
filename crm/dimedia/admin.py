@@ -79,7 +79,7 @@ class CustomerAdmin(ExportActionMixin, admin.ModelAdmin):
     def phone_numbers(self, customer: Customer):
         phone_numbers = [phone_number.phone_number for phone_number in customer.phone_number.all()]
         if len(phone_numbers) > 1:
-            return ', '.join(phone_numbers)
+            return ', '.join([str(each) for each in phone_numbers])
         elif len(phone_numbers) == 1:
             return phone_numbers[0]
         return '-'
@@ -143,7 +143,7 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
             emails = None
 
         if len(phone_numbers) > 1:
-            phone_numbers = ', '.join(phone_numbers)
+            phone_numbers = ', '.join([str(each) for each in phone_numbers])
         elif len(phone_numbers) == 1:
             phone_numbers = phone_numbers[0]
         else:
@@ -173,7 +173,9 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
         # return str(self.date_scheduled_call)
 
     def organisation_name(self, order: Order):
-        return order.customer.company.name
+        if order.customer.company is not None:
+            return order.customer.company.name
+        return "Нет названия компании"
 
     def contact_person_(self, order: Order):
         person = order.contact_person
@@ -194,6 +196,7 @@ class OrderAdmin(ExportActionMixin, admin.ModelAdmin):
 
     search_fields = [
         'id',
+        'conversion_goal',
         'status__name',
         'source__source',
         'status__name',
